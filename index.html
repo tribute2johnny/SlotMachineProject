@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Slot Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        canvas {
+            border: 1px solid #333;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #startButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #startButton:hover {
+            background-color: #45a049;
+        }
+
+        .alert {
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+
+        .alert.win {
+            color: green;
+        }
+
+        .alert.loss {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="slotCanvas" width="400" height="300"></canvas>
+
+    <p id="resultText"></p>
+
+    <button id="startButton">Start</button>
+
+    <script src="slot.js"></script>
+
+    <script>
+
+        const startButton = document.getElementById('startButton');
+        startButton.addEventListener('click', spin);
+
+        const symbolImages = symbols.map(symbol => getSymbolImage(symbol));
+
+        function updateResultText(result) {
+            resultText.textContent = result;
+        }
+
+         // Wait for all symbol images to load
+    Promise.all(symbolImages)
+      .then(() => {
+        // Enable the start button once all images are loaded
+        startButton.disabled = false;
+      })
+      .catch(error => {
+        console.error('Error loading symbol images:', error);
+      });
+    </script>
+</body>
+
+</html>
